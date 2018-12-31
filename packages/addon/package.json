@@ -1,0 +1,21 @@
+{
+	"name": "addon",
+	"version": "0.0.0",
+	"main": "dist/index.js",
+	"repository": "git@github.com:dimitarnestorov/snooze-for-gmail.git",
+	"author": "Dimitar Nestorov <opensource@dimitarnestorov.com> (https://dimitarnestorov.com)",
+	"license": "MIT",
+	"private": true,
+	"scripts": {
+		"rm-dist": "rimraf dist",
+		"cpx": "cpx \"./src/*.{js,json}\" dist",
+		"watch-cpx": "cpx \"./src/*.{js,json}\" dist --watch",
+		"watch-clasp": "clasp push --watch",
+		"build-ts": "tsc --pretty",
+		"watch-ts": "tsc --watch --pretty",
+		"watch": "exit 1"
+	},
+	"devDependencies": {
+		"@types/google-apps-script": "^0.0.33"
+	}
+}
