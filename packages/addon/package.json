@@ -13,7 +13,7 @@
 		"watch-clasp": "clasp push --watch",
 		"build-ts": "tsc --pretty",
 		"watch-ts": "tsc --watch --pretty",
-		"watch": "exit 1"
+		"watch": "yarn run rm-dist && concurrently yarn:watch-cpx yarn:watch-ts yarn:watch-clasp"
 	},
 	"devDependencies": {
 		"@types/google-apps-script": "^0.0.33"

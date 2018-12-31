@@ -8,9 +8,9 @@ type GmailEvent = {
 	},
 }
 
-declare var global: any
+declare var globalThis: any
 
-global.main = function main(event: GmailEvent) {
+globalThis.main = function main(event: GmailEvent) {
 	const accessToken = event.messageMetadata.accessToken
 	GmailApp.setCurrentMessageAccessToken(accessToken)
 
@@ -37,6 +37,6 @@ global.main = function main(event: GmailEvent) {
 	return cards
 }
 
-global.handleSnoozeClick = function handleSnoozeClick() {
+globalThis.handleSnoozeClick = function handleSnoozeClick() {
 
 }
