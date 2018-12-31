@@ -1,4 +1,4 @@
-import { getTimeDropdown, getFolderDropdown, getFromDropdown } from './dropdowns'
+import { getDaysDropdown, getFolderDropdown, getFromDropdown } from './dropdowns'
 import getDefaults from './defaults'
 
 type GmailEvent = {
@@ -15,7 +15,7 @@ globalThis.main = function main(event: GmailEvent) {
 	const cards: GoogleAppsScript.Card_Service.Card[] = []
 
 	const card = CardService.newCardBuilder()
-	card.setHeader(CardService.newCardHeader().setTitle('Snooze'))
+	card.setHeader(CardService.newCardHeader())
 
 	const defaults = getDefaults()
 	const button = CardService.newTextButton().setText('Snooze').setOnClickAction(
@@ -23,7 +23,7 @@ globalThis.main = function main(event: GmailEvent) {
 	)
 
 	const section = CardService.newCardSection()
-		.addWidget(getTimeDropdown('Snooze for', defaults.days))
+		.addWidget(getDaysDropdown('Snooze for', defaults.days))
 		.addWidget(getFromDropdown(event.messageMetadata.messageId, defaults.from))
 		.addWidget(getFolderDropdown('Move emails to', defaults.folder))
 		.addWidget(CardService.newButtonSet().addButton(button))

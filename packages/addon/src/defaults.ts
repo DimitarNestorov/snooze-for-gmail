@@ -15,8 +15,8 @@ export default function getDefaults(): Defaults {
 	const from = typeof defaultsFromStorage.from === 'string'
 		? defaultsFromStorage.from as From
 		: From.Full
-	const days = typeof defaultsFromStorage.time === 'number'
-		? defaultsFromStorage.time as Days
+	const days = typeof defaultsFromStorage.days === 'number'
+		? defaultsFromStorage.days as Days
 		: Days.Seven
 	const folder = typeof defaultsFromStorage.folder === 'string'
 		? defaultsFromStorage.folder as Folder
