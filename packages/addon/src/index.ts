@@ -1,20 +1,18 @@
 import { getTimeDropdown, getFolderDropdown, getFromDropdown } from './dropdowns'
-import { getDefaults } from './defaults'
+import getDefaults from './defaults'
 
 type GmailEvent = {
 	messageMetadata: {
 		accessToken: string,
 		messageId: string,
 	},
-}
-
-declare var globalThis: any
+};
 
 globalThis.main = function main(event: GmailEvent) {
 	const accessToken = event.messageMetadata.accessToken
 	GmailApp.setCurrentMessageAccessToken(accessToken)
 
-	const cards: GoogleAppsScript.Card.Card[] = []
+	const cards: GoogleAppsScript.Card_Service.Card[] = []
 
 	const card = CardService.newCardBuilder()
 	card.setHeader(CardService.newCardHeader().setTitle('Snooze'))
