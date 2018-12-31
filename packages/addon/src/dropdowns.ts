@@ -15,14 +15,11 @@ function newDropdown(title: string, name: string) {
  *  @param {String} sender The results returned from getFrom().
  *  @return {String} Only the email address.
  */
+const regex = /<([^@]+@[^>]+)>/
 function extractEmailAddress(sender: string) {
-	var regex = /<([^@]+@[^>]+)>/
-	var email = sender // Default to using the whole string.
-	var match = regex.exec(sender)
-	if (match) {
-		email = match[1]
-	}
-	return email
+	const match = regex.exec(sender)
+	if (match) return match[1]
+	return sender
 }
 
 function extractDomain(email: string) {
@@ -31,19 +28,26 @@ function extractDomain(email: string) {
 
 export function getFromDropdown(messageId: string, defaultValue: From) {
 	// Use the Gmail service to access information about this message.
-	var mail = GmailApp.getMessageById(messageId)
-	var senderEmail = mail.getFrom()
+	const mail = GmailApp.getMessageById(messageId)
+	const senderEmail = mail.getFrom()
 
-	var justEmail = extractEmailAddress(senderEmail)
-	var domain = '*@' + extractDomain(justEmail)
+	const justEmail = extractEmailAddress(senderEmail)
+	const domain = `*@${extractDomain(justEmail)}`
 	return newDropdown('Snooze emails from', 'from')
 		.addItem(senderEmail, senderEmail, defaultValue === From.Full)
 		.addItem(justEmail, justEmail, defaultValue === From.Email)
 		.addItem(domain, domain, defaultValue === From.Domain)
 }
 
-export function getTimeDropdown(title: string, defaultValue: Days) {
-	return newDropdown(title, 'time')
+export function getSettingsFromDropdown(defaultValue: From) {
+	return newDropdown('Default "Snooze emails from" option', 'from')
+		.addItem('Name <address@domain.com>', 'full', defaultValue === From.Full)
+		.addItem('address@domain.com', 'email', defaultValue === From.Email)
+		.addItem('*@domain.com', 'domain', defaultValue === From.Domain)
+}
+
+export function getDaysDropdown(title: string, defaultValue: Days) {
+	return newDropdown(title, 'days')
 		.addItem('24 hours', Days.One, defaultValue === Days.One)
 		.addItem('7 days', Days.Seven, defaultValue === Days.Seven)
 		.addItem('30 days', Days.Thirty, defaultValue === Days.Thirty)
