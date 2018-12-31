@@ -2,10 +2,11 @@
 	"compilerOptions": {
 		"noImplicitAny": true,
 		"noImplicitUseStrict": false,
+		"noUnusedLocals": true,
+		"pretty": true,
 		"target": "es3",
-		"module": "amd",
-		"sourceRoot": "./src/index.js",
-		"outFile": "./dist/index.js",
-		"inlineSourceMap": true,
+		"lib": [
+			"es5",
+		],
 	},
 }

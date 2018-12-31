@@ -3,10 +3,22 @@
 	"workspaces": [
 		"packages/*"
 	],
+	"scripts": {
+		"watch-addon": "cd packages/addon && yarn run watch",
+		"postinstall": "patch-package"
+	},
 	"devDependencies": {
+		"@google/clasp": "^1.7.0",
 		"concurrently": "^4.1.0",
-		"cpx": "^1.5.0",
+		"copy-webpack-plugin": "^4.6.0",
+		"fork-ts-checker-webpack-plugin": "^0.5.2",
+		"patch-package": "^5.1.1",
+		"postinstall-postinstall": "^2.0.0",
 		"rimraf": "^2.6.2",
-		"typescript": "^3.2.2"
+		"ts-loader": "^5.3.2",
+		"tslint": "^5.12.0",
+		"typescript": "^3.2.2",
+		"webpack": "^4.28.3",
+		"webpack-cli": "^3.1.2"
 	}
 }

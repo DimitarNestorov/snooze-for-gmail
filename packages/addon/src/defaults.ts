@@ -10,7 +10,7 @@ function getDefaultsFromStorage() {
 	}
 }
 
-export function getDefaults(): Defaults {
+export default function getDefaults(): Defaults {
 	const defaultsFromStorage = getDefaultsFromStorage()
 	const from = typeof defaultsFromStorage.from === 'string'
 		? defaultsFromStorage.from as From

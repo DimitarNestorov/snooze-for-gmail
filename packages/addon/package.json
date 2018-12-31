@@ -8,14 +8,14 @@
 	"private": true,
 	"scripts": {
 		"rm-dist": "rimraf dist",
-		"cpx": "cpx \"./src/*.{js,json}\" dist",
-		"watch-cpx": "cpx \"./src/*.{js,json}\" dist --watch",
-		"watch-clasp": "clasp push --watch",
-		"build-ts": "tsc --pretty",
-		"watch-ts": "tsc --watch --pretty",
-		"watch": "yarn run rm-dist && concurrently yarn:watch-cpx yarn:watch-ts yarn:watch-clasp"
+		"build-webpack": "webpack-cli --mode production",
+		"push-clasp": "clasp push",
+		"build+push": "yarn run rm-dist && yarn run build-webpack && yarn run push-clasp",
+		"watch-webpack": "webpack-cli --watch --mode development",
+		"watch-clasp": "sleep 5 && clasp push --watch --force",
+		"watch": "yarn run rm-dist && concurrently yarn:watch-webpack yarn:watch-clasp"
 	},
 	"devDependencies": {
-		"@types/google-apps-script": "^0.0.33"
+		"@types/google-apps-script": "^0.0.34"
 	}
 }
