@@ -1,0 +1,11 @@
+{
+	"name": "shared",
+	"version": "0.0.0",
+	"main": "dist/index.js",
+	"private": true,
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc --watch",
+		"postinstall": "yarn run build"
+	}
+}

@@ -1,12 +1,17 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
+const externals = {}
+Object.keys(require('./package.json').dependencies).forEach(key => {
+	externals[key] = `commonjs ${key}`
+})
+
 module.exports = {
-	entry: ['./src/globalThis', './src/internal'],
+	entry: './src/index',
 	output: {
+		filename: 'index.js',
 		libraryTarget: 'this',
 	},
-	devtool: 'none',
+	devtool: 'source-map',
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js'],
 	},
@@ -23,13 +28,6 @@ module.exports = {
 	},
 	plugins: [
 		new ForkTsCheckerWebpackPlugin(),
-		new CopyWebpackPlugin([
-			'appsscript.json',
-		], {
-			context: 'src',
-		}),
 	],
-	optimization: {
-		minimize: false,
-	},
+	externals,
 }

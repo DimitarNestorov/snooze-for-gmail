@@ -24,7 +24,7 @@ function resetDefaultValues() {
 
 const changesMessage = 'Changes will be applied next time the add-on loads.'
 
-globalThis.handleSaveClick = function handleSaveClick(event: SubmitEvent) {
+export function handleSaveClick(event: SubmitEvent) {
 	saveDefaultValues(event)
 	return CardService.newActionResponseBuilder()
 		.setNavigation(CardService.newNavigation().popCard())
@@ -36,7 +36,7 @@ globalThis.handleSaveClick = function handleSaveClick(event: SubmitEvent) {
 		.build()
 }
 
-globalThis.handleResetClick = function handleResetClick() {
+export function handleResetClick() {
 	resetDefaultValues()
 	return CardService.newActionResponseBuilder()
 		.setNavigation(CardService.newNavigation().popCard())
@@ -48,7 +48,7 @@ globalThis.handleResetClick = function handleResetClick() {
 		.build()
 }
 
-globalThis.settings = function settings() {
+export function settings() {
 	const card = CardService.newCardBuilder()
 	card.setHeader(CardService.newCardHeader().setTitle('Settings'))
 

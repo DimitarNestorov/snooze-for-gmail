@@ -1,5 +1,5 @@
 declare var globalThis: any
 
-globalThis = (function(){
+globalThis = (function(this: void) {
 	return this
 }())

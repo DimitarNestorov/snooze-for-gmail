@@ -4,7 +4,7 @@ import { userProperties } from './properties'
 
 function getDefaultsFromStorage() {
 	try {
-		return JSON.parse(userProperties.getProperty('defaults')) || {}
+		return JSON.parse(userProperties.getProperty('defaults') || "{}")
 	} catch(error) {
 		return {}
 	}
