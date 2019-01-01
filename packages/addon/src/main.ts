@@ -1,14 +1,52 @@
-import { getDaysDropdown, getFolderDropdown, getFromDropdown } from './dropdowns'
+import { buildUrl } from 'shared'
+
 import getDefaults from './defaults'
+import { getDaysDropdown, getFolderDropdown, getFromDropdown } from './dropdowns'
+import { isErrorCode } from './functions'
+import { userProperties } from './properties'
 
 type GmailEvent = {
 	messageMetadata: {
 		accessToken: string,
 		messageId: string,
 	},
-};
+}
 
-globalThis.main = function main(event: GmailEvent) {
+function login(accessToken: string) {
+	const loginCard = CardService.newCardBuilder()
+	loginCard.setHeader(CardService.newCardHeader().setTitle('Login'))
+
+	const loginSection = CardService.newCardSection()
+		.addWidget(
+			CardService.newButtonSet()
+				.addButton(
+					CardService.newTextButton()
+						.setText('Login')
+						.setAuthorizationAction(
+							CardService.newAuthorizationAction()
+								.setAuthorizationUrl(buildUrl('login', { accessToken })),
+						),
+				),
+		)
+
+	loginCard.addSection(loginSection)
+	return [loginCard.build()]
+}
+
+export function main(event: GmailEvent) {
+	let token = userProperties.getProperty('token')
+	if (!token) {
+		const accessToken = ScriptApp.getOAuthToken()
+		const url = buildUrl('generateToken', { accessToken })
+		const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true })
+		if (isErrorCode(response.getResponseCode())) return login(accessToken)
+
+		Logger.log(response.getContentText())
+		const tokenFromResponse = JSON.parse(response.getContentText()).token
+		userProperties.setProperty('token', tokenFromResponse)
+		token = tokenFromResponse
+	}
+
 	const accessToken = event.messageMetadata.accessToken
 	GmailApp.setCurrentMessageAccessToken(accessToken)
 
@@ -35,6 +73,6 @@ globalThis.main = function main(event: GmailEvent) {
 	return cards
 }
 
-globalThis.handleSnoozeClick = function handleSnoozeClick() {
+export function handleSnoozeClick() {
 
 }

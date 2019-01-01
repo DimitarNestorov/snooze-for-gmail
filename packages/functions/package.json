@@ -1,0 +1,22 @@
+{
+	"name": "functions",
+	"version": "0.0.0",
+	"main": "dist/index.js",
+	"private": true,
+	"scripts": {
+		"lint": "exit 0 #TODO:",
+		"rm-dist": "rimraf dist",
+		"build-ts": "yarn run rm-dist && tsc --sourceMap --sourceRoot src --outDir dist",
+		"build": "yarn run rm-dist && webpack-cli --mode production",
+		"serve": "yarn run build && firebase serve --only functions",
+		"shell": "yarn run build && firebase functions:shell",
+		"start": "yarn run shell",
+		"deploy": "firebase deploy --only functions",
+		"logs": "firebase functions:log"
+	},
+	"dependencies": {
+		"firebase-admin": "6.0.0",
+		"firebase-functions": "2.1.0",
+		"googleapis": "36.0.0"
+	}
+}
