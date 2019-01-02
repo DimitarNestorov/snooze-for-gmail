@@ -1,4 +1,7 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const { DefinePlugin } = require('webpack')
+
+const definePluginConfig = require('../../definePluginConfig')
 
 const externals = {}
 Object.keys(require('./package.json').dependencies).forEach(key => {
@@ -28,6 +31,7 @@ module.exports = {
 	},
 	plugins: [
 		new ForkTsCheckerWebpackPlugin(),
+		new DefinePlugin(definePluginConfig),
 	],
 	externals,
 }

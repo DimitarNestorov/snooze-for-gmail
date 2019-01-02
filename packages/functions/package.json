@@ -23,6 +23,7 @@
 		"luxon": "1.9.0"
 	},
 	"devDependencies": {
-		"@types/luxon": "^1.4.1"
+		"@types/luxon": "^1.4.1",
+		"@types/node": "^10.12.18"
 	}
 }

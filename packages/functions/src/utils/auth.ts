@@ -3,7 +3,7 @@ import * as functions from 'firebase-functions'
 import { google } from 'googleapis'
 import { OAuth2Client } from 'google-auth-library'
 
-import { buildUrl } from 'shared/src'
+import { buildUrl } from 'shared'
 
 import { User } from './'
 
@@ -11,7 +11,7 @@ export function createOAuth2Client() {
 	return new google.auth.OAuth2(
 		functions.config().oauth.client_id,
 		functions.config().oauth.client_secret,
-		buildUrl('loginCallback'),
+		buildUrl(LOGIN_CALLBACK_CLOUD_FUNCTION_NAME),
 	)
 }
 

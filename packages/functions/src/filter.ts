@@ -1,6 +1,5 @@
 import to from 'await-to-js'
 import * as admin from 'firebase-admin'
-import * as functions from 'firebase-functions'
 import { google, gmail_v1 } from 'googleapis'
 import { DateTime } from 'luxon'
 
@@ -8,8 +7,7 @@ import { StatusCodes, Folder } from 'shared'
 
 import { createFunction, getUserFromToken, createOAuth2Client } from './utils'
 
-
-export const createFilter = createFunction().onRequest(async (request, response) => {
+exports[CREATE_FILTER_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, response) => {
 	const [ error, user ] = await to(getUserFromToken(request.headers.token as string))
 	if (!user || error) {
 		error && console.error(error)
@@ -59,7 +57,7 @@ export const createFilter = createFunction().onRequest(async (request, response)
 		const deleteAfter = DateTime.local().plus({ days: parseInt(days, 10) })
 
 		const [ error ] = await to(admin.database().ref('filters').push({
-			days: deleteAfter.toISO(),
+			deleteAfter: deleteAfter.toISO(),
 			userId: user.id,
 			googleId: filter.id,
 		}))
