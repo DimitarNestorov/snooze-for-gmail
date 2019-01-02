@@ -2,7 +2,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 module.exports = {
-	entry: ['./src/globalThis', './src/internal'],
+	entry: ['./src/globalThis', './src/index'],
 	output: {
 		libraryTarget: 'this',
 	},

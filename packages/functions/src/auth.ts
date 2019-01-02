@@ -1,5 +1,5 @@
-import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import * as functions from 'firebase-functions'
 import { google } from 'googleapis'
 
 import { StatusCodes } from 'shared'
@@ -58,7 +58,6 @@ export const login = createFunction().onRequest(async (request, response) => {
 		auth: oauth2Client,
 	})
 
-	// eslint-disable-next-line camelcase
 	oauth2Client.setCredentials({ access_token: accessToken })
 
 	try {
@@ -94,7 +93,6 @@ export const generateToken = createFunction().onRequest(async (request, response
 		auth: oauth2Client,
 	})
 
-	// eslint-disable-next-line camelcase
 	oauth2Client.setCredentials({ access_token: accessToken })
 
 	try {
@@ -103,7 +101,7 @@ export const generateToken = createFunction().onRequest(async (request, response
 
 		if (!id) throw new Error('id is undefined')
 
-		const snapshot = (await admin.database().ref(`users/${id}`).once('value'))
+		const snapshot = await admin.database().ref(`users/${id}`).once('value')
 		if (!snapshot.exists()){
 			// User does not exist
 			response.status(401).end()

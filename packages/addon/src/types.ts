@@ -1,7 +1,6 @@
-export const enum Folder {
-	Archive = 'archive',
-	Trash = 'trash',
-}
+import { Folder } from 'shared'
+
+export { Folder } from 'shared'
 
 export const enum From {
 	Domain = 'domain',
@@ -15,7 +14,7 @@ export const enum Days {
 	Thirty = 30,
 }
 
-export type Defaults = {
+export type Combined = {
 	from: From,
 	days: Days,
 	folder: Folder,

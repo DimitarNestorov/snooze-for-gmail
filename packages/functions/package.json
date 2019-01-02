@@ -8,6 +8,7 @@
 		"rm-dist": "rimraf dist",
 		"build-ts": "yarn run rm-dist && tsc --sourceMap --sourceRoot src --outDir dist",
 		"build": "yarn run rm-dist && webpack-cli --mode production",
+		"watch": "yarn run rm-dist && webpack-cli --mode production --watch",
 		"serve": "yarn run build && firebase serve --only functions",
 		"shell": "yarn run build && firebase functions:shell",
 		"start": "yarn run shell",
@@ -15,8 +16,13 @@
 		"logs": "firebase functions:log"
 	},
 	"dependencies": {
+		"await-to-js": "^2.1.1",
 		"firebase-admin": "6.0.0",
 		"firebase-functions": "2.1.0",
-		"googleapis": "36.0.0"
+		"googleapis": "36.0.0",
+		"luxon": "1.9.0"
+	},
+	"devDependencies": {
+		"@types/luxon": "^1.4.1"
 	}
 }

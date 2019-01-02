@@ -4,6 +4,7 @@
 		"packages/*"
 	],
 	"scripts": {
+		"deploy-addon": "yarn --cwd ./packages/addon run deploy",
 		"watch-addon": "yarn --cwd ./packages/addon run watch",
 		"deploy-functions": "yarn --cwd ./packages/functions run deploy",
 		"build-shared": "yarn --cwd ./packages/shared run build",
