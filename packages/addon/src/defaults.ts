@@ -1,4 +1,4 @@
-import { Defaults, From, Days, Folder } from './types'
+import { Combined, From, Days, Folder } from './types'
 import { userProperties } from './properties'
 
 
@@ -10,7 +10,7 @@ function getDefaultsFromStorage() {
 	}
 }
 
-export default function getDefaults(): Defaults {
+export default function getDefaults(): Combined {
 	const defaultsFromStorage = getDefaultsFromStorage()
 	const from = typeof defaultsFromStorage.from === 'string'
 		? defaultsFromStorage.from as From

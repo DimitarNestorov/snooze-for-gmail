@@ -4,6 +4,7 @@ import getDefaults from './defaults'
 import { getDaysDropdown, getFolderDropdown, getFromDropdown } from './dropdowns'
 import { isErrorCode } from './functions'
 import { userProperties } from './properties'
+import { Combined } from './types'
 
 type GmailEvent = {
 	messageMetadata: {
@@ -73,6 +74,24 @@ export function main(event: GmailEvent) {
 	return cards
 }
 
-export function handleSnoozeClick() {
+type ClickEvent = {
+	formInput: Combined,
+}
 
+export function handleSnoozeClick(event: ClickEvent) {
+	const token = userProperties.getProperty('token')
+	const url = buildUrl(`createFilter`, {
+		from: encodeURIComponent(event.formInput.from),
+		days: event.formInput.days,
+		folder: event.formInput.folder,
+	})
+
+	UrlFetchApp.fetch(url, { method: 'post', headers: { Token: token } })
+	return CardService.newActionResponseBuilder().setNavigation(
+		CardService.newNavigation().updateCard(
+			CardService.newCardBuilder().setHeader(
+				CardService.newCardHeader().setTitle('Complete'),
+			).build(),
+		),
+	).build()
 }

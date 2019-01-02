@@ -6,7 +6,7 @@ Object.keys(require('./package.json').dependencies).forEach(key => {
 })
 
 module.exports = {
-	entry: './src/index',
+	entry: './src/main',
 	output: {
 		filename: 'index.js',
 		libraryTarget: 'this',

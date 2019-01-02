@@ -1,0 +1,12 @@
+patch-package
+--- a/node_modules/firebase-admin/lib/index.d.ts
++++ b/node_modules/firebase-admin/lib/index.d.ts
+@@ -327,7 +327,7 @@ declare namespace admin.database {
+ 
+     child(path: string): admin.database.Reference;
+     onDisconnect(): admin.database.OnDisconnect;
+-    push(value?: any, onComplete?: (a: Error|null) => any): admin.database.ThenableReference;
++    push(value?: any, onComplete?: (a: Error|null) => any): Promise<Reference>;
+     remove(onComplete?: (a: Error|null) => any): Promise<void>;
+     set(value: any, onComplete?: (a: Error|null) => any): Promise<void>;
+     setPriority(
