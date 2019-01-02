@@ -1,0 +1,8 @@
+declare global {
+	const GENERATE_TOKEN_CLOUD_FUNCTION_NAME: string
+	const LOGIN_CLOUD_FUNCTION_NAME: string
+	const LOGIN_CALLBACK_CLOUD_FUNCTION_NAME: string
+	const CREATE_FILTER_CLOUD_FUNCTION_NAME: string
+}
+
+export {}

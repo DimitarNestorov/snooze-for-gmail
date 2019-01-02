@@ -9,7 +9,7 @@ import {
 	getConnectionUrl,
 	errorOccurredMarkup,
 	createFunction,
-	redirectingMarkup
+	redirectingMarkup,
 } from './utils'
 
 admin.initializeApp(functions.config().firebase)
@@ -19,7 +19,7 @@ function redirectToLogin(email: string, response: functions.Response) {
 	response.redirect(getConnectionUrl(client, email))
 }
 
-export const loginCallback = createFunction().onRequest(async (request, response) => {
+exports[LOGIN_CALLBACK_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, response) => {
 	try {
 		const { code }: { code?: string } = request.query
 		if (!code) throw new Error('Code is empty')
@@ -48,7 +48,7 @@ export const loginCallback = createFunction().onRequest(async (request, response
 	}
 })
 
-export const login = createFunction().onRequest(async (request, response) => {
+exports[LOGIN_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, response) => {
 	const { accessToken }: { accessToken: string } = request.query
 
 	const oauth2Client = new google.auth.OAuth2()
@@ -83,7 +83,7 @@ export const login = createFunction().onRequest(async (request, response) => {
 	}
 })
 
-export const generateToken = createFunction().onRequest(async (request, response) => {
+exports[GENERATE_TOKEN_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, response) => {
 	const { accessToken }: { accessToken: string } = request.query
 
 	const oauth2Client = new google.auth.OAuth2()
@@ -102,9 +102,10 @@ export const generateToken = createFunction().onRequest(async (request, response
 		if (!id) throw new Error('id is undefined')
 
 		const snapshot = await admin.database().ref(`users/${id}`).once('value')
-		if (!snapshot.exists()){
+		if (!snapshot.exists()) {
 			// User does not exist
 			response.status(401).end()
+			return
 		}
 
 		const token = await admin.database().ref('tokens').push(id)

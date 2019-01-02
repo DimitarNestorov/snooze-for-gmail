@@ -25,7 +25,7 @@ function login(accessToken: string) {
 						.setText('Login')
 						.setAuthorizationAction(
 							CardService.newAuthorizationAction()
-								.setAuthorizationUrl(buildUrl('login', { accessToken })),
+								.setAuthorizationUrl(buildUrl(LOGIN_CLOUD_FUNCTION_NAME, { accessToken })),
 						),
 				),
 		)
@@ -34,18 +34,18 @@ function login(accessToken: string) {
 	return [loginCard.build()]
 }
 
-export function main(event: GmailEvent) {
-	let token = userProperties.getProperty('token')
+export function main(event: GmailEvent): GoogleAppsScript.Card_Service.Card[] {
+	const token = userProperties.getProperty('token')
 	if (!token) {
 		const accessToken = ScriptApp.getOAuthToken()
-		const url = buildUrl('generateToken', { accessToken })
+		const url = buildUrl(GENERATE_TOKEN_CLOUD_FUNCTION_NAME, { accessToken })
 		const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true })
 		if (isErrorCode(response.getResponseCode())) return login(accessToken)
 
 		Logger.log(response.getContentText())
 		const tokenFromResponse = JSON.parse(response.getContentText()).token
 		userProperties.setProperty('token', tokenFromResponse)
-		token = tokenFromResponse
+		// token = tokenFromResponse
 	}
 
 	const accessToken = event.messageMetadata.accessToken
@@ -80,7 +80,7 @@ type ClickEvent = {
 
 export function handleSnoozeClick(event: ClickEvent) {
 	const token = userProperties.getProperty('token')
-	const url = buildUrl(`createFilter`, {
+	const url = buildUrl(CREATE_FILTER_CLOUD_FUNCTION_NAME, {
 		from: encodeURIComponent(event.formInput.from),
 		days: event.formInput.days,
 		folder: event.formInput.folder,

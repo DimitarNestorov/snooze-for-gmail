@@ -1,5 +1,8 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const { DefinePlugin } = require('webpack')
+
+const definePluginConfig = require('../../definePluginConfig')
 
 module.exports = {
 	entry: ['./src/globalThis', './src/index'],
@@ -28,6 +31,7 @@ module.exports = {
 		], {
 			context: 'src',
 		}),
+		new DefinePlugin(definePluginConfig),
 	],
 	optimization: {
 		minimize: false,

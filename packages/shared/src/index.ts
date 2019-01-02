@@ -22,3 +22,5 @@ export const enum Folder {
 	Archive = 'archive',
 	Trash = 'trash',
 }
+
+export * from './env'
