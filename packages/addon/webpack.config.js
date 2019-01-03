@@ -1,38 +1,21 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const { DefinePlugin } = require('webpack')
+const CopyPlugin = require('copy-webpack-plugin')
 
-const definePluginConfig = require('../../definePluginConfig')
+const baseConfig = require('../../webpack.config.js')
+
+baseConfig.plugins.push(new CopyPlugin([
+	'appsscript.json',
+], {
+	context: 'src',
+}))
 
 module.exports = {
-	entry: ['./src/globalThis', './src/index'],
+	...baseConfig,
+
+	// entry: ['./src/globalThis', './src/index'],
 	output: {
+		filename: 'index.js',
 		libraryTarget: 'this',
 	},
-	devtool: 'none',
-	resolve: {
-		extensions: ['.ts', '.tsx', '.js'],
-	},
-	module: {
-		rules: [
-			{
-				test: /\.tsx?$/,
-				loader: 'ts-loader',
-				options: {
-					transpileOnly: true,
-				},
-			},
-		],
-	},
-	plugins: [
-		new ForkTsCheckerWebpackPlugin(),
-		new CopyWebpackPlugin([
-			'appsscript.json',
-		], {
-			context: 'src',
-		}),
-		new DefinePlugin(definePluginConfig),
-	],
 	optimization: {
 		minimize: false,
 	},
