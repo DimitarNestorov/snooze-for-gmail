@@ -11,6 +11,9 @@ yarn-debug.log*
 yarn-error.log*
 firebase-debug.log*
 
+packages/appengine/key.json
+packages/appengine/cron.yaml
+
 # Firebase cache
 .firebase
 

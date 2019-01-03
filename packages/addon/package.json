@@ -16,8 +16,5 @@
 		"watch-webpack-dev": "yarn run watch-webpack --mode development",
 		"watch-clasp": "sleep 5 && clasp push --watch --force",
 		"watch": "yarn run rm-dist && concurrently yarn:watch-webpack yarn:watch-clasp"
-	},
-	"devDependencies": {
-		"@types/google-apps-script": "^0.0.34"
 	}
 }

@@ -3,16 +3,15 @@ import * as functions from 'firebase-functions'
 import { google } from 'googleapis'
 
 import { StatusCodes } from 'shared'
+import { createOAuth2Client } from 'shared-node'
 
 import {
-	createOAuth2Client,
 	getConnectionUrl,
 	errorOccurredMarkup,
 	createFunction,
 	redirectingMarkup,
 } from './utils'
 
-admin.initializeApp(functions.config().firebase)
 
 function redirectToLogin(email: string, response: functions.Response) {
 	const client = createOAuth2Client()

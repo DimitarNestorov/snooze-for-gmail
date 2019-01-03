@@ -7,14 +7,6 @@ import { buildUrl } from 'shared'
 
 import { User } from './'
 
-export function createOAuth2Client() {
-	return new google.auth.OAuth2(
-		functions.config().oauth.client_id,
-		functions.config().oauth.client_secret,
-		buildUrl(LOGIN_CALLBACK_CLOUD_FUNCTION_NAME),
-	)
-}
-
 const defaultScope = [
 	"https://www.googleapis.com/auth/userinfo.email",
 	"https://www.googleapis.com/auth/gmail.settings.basic",

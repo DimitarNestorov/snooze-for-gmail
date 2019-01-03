@@ -1,0 +1,12 @@
+.gcloudignore
+.git
+.gitignore
+
+webpack.config.js
+tsconfig.json
+key.json
+cron.example.yaml
+
+node_modules/
+
+src/

@@ -5,7 +5,8 @@ const dotenv = require('dotenv')
 
 const dotenvPath = path.join(__dirname, '.env')
 const dotenvPathExample = path.join(__dirname, '.env.example')
-if (fs.existsSync(dotenvPath)) {
+const exitstsDotenv = fs.existsSync(dotenvPath)
+if (exitstsDotenv) {
 	console.log('Using .env file to supply config environment variables')
 	dotenv.config({ path: dotenvPath })
 } else {
@@ -26,15 +27,10 @@ function filterObject(object, keys) {
 	const newObject = {}
 
 	for (const i in object) {
-		keys.includes(i) && (newObject[i] = object[i])
+		keys.includes(i) && (newObject[i] = `"${object[i]}"`)
 	}
 
 	return newObject
 }
 
-module.exports = filterObject(process.env, [
-	'LOGIN_CLOUD_FUNCTION_NAME',
-	'LOGIN_CALLBACK_CLOUD_FUNCTION_NAME',
-	'GENERATE_TOKEN_CLOUD_FUNCTION_NAME',
-	'CREATE_FILTER_CLOUD_FUNCTION_NAME',
-])
+module.exports = filterObject(process.env, Object.keys(dotenv.parse(fs.readFileSync(exitstsDotenv ? dotenvPath : dotenvPathExample))))

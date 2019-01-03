@@ -4,8 +4,9 @@ import { google, gmail_v1 } from 'googleapis'
 import { DateTime } from 'luxon'
 
 import { StatusCodes, Folder } from 'shared'
+import { createOAuth2Client } from 'shared-node'
 
-import { createFunction, getUserFromToken, createOAuth2Client } from './utils'
+import { createFunction, getUserFromToken } from './utils'
 
 exports[CREATE_FILTER_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, response) => {
 	const [ error, user ] = await to(getUserFromToken(request.headers.token as string))
@@ -17,14 +18,14 @@ exports[CREATE_FILTER_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (r
 
 	const { days, from, folder } = request.query
 
-	const oauth2Client = createOAuth2Client()
+	const client = createOAuth2Client()
 
 	const gmail = google.gmail({
 		version: 'v1',
-		auth: oauth2Client,
+		auth: client,
 	})
 
-	oauth2Client.setCredentials({
+	client.setCredentials({
 		access_token: user.accessToken,
 		refresh_token: user.refreshToken,
 	})
@@ -48,18 +49,18 @@ exports[CREATE_FILTER_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (r
 
 		response.sendStatus(StatusCodes.OK)
 
-		if (oauth2Client.credentials.id_token) {
-			user.accessToken = oauth2Client.credentials.access_token!
+		if (client.credentials.id_token) {
+			user.accessToken = client.credentials.access_token!
 			const [ error ] = await to(user.save())
 			error && console.error(error)
 		}
 
-		const deleteAfter = DateTime.local().plus({ days: parseInt(days, 10) })
+		const deleteAfter = DateTime.utc().plus({ days: parseInt(days, 10) })
 
 		const [ error ] = await to(admin.database().ref('filters').push({
-			deleteAfter: deleteAfter.toISO(),
+			deleteAfter: deleteAfter.toMillis(),
 			userId: user.id,
-			googleId: filter.id,
+			id: filter.id,
 		}))
 		error && console.error(error)
 	} catch(error) {

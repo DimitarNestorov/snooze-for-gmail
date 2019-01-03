@@ -12,7 +12,6 @@ module.exports = {
 	entry: './src/index',
 	output: {
 		filename: 'index.js',
-		libraryTarget: 'this',
 	},
 	devtool: 'source-map',
 	resolve: {
