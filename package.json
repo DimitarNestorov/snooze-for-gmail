@@ -4,19 +4,20 @@
 		"packages/*"
 	],
 	"scripts": {
-		"deploy-addon": "yarn --cwd ./packages/addon run deploy",
-		"watch-addon": "yarn --cwd ./packages/addon run watch",
-		"deploy-functions": "yarn --cwd ./packages/functions run deploy",
-		"build-shared": "yarn --cwd ./packages/shared run build",
+		"deploy-addon": "yarn workspace addon run deploy",
+		"watch-addon": "yarn workspace addon run watch",
+		"build-appengine": "yarn workspace appengine build",
+		"watch-appengine": "yarn workspace appengine watch",
+		"start-appengine": "yarn workspace appengine start",
+		"deploy-appengine": "yarn workspace appengine deploy",
+		"deploy-functions": "yarn workspace functions run deploy",
 		"postinstall": "patch-package"
 	},
-	"husky": {
-		"hooks": {
-			"post-checkout": "yarn run build-shared",
-			"pre-commit": "yarn run build-shared"
-		}
-	},
 	"devDependencies": {
+		"@types/express": "^4.16.0",
+		"@types/node": "^10.12.18",
+		"@types/luxon": "^1.4.1",
+		"@types/google-apps-script": "^0.0.34",
 		"@google/clasp": "^1.7.0",
 		"concurrently": "^4.1.0",
 		"copy-webpack-plugin": "^4.6.0",

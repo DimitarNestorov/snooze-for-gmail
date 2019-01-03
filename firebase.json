@@ -2,8 +2,8 @@
 	"functions": {
 		"source": "./packages/functions",
 		"predeploy": [
-			"yarn --cwd \"$RESOURCE_DIR\" run lint",
-			"yarn --cwd \"$RESOURCE_DIR\" run build"
+			"yarn workspace functions run lint",
+			"yarn workspace functions run build"
 		]
 	}
 }
