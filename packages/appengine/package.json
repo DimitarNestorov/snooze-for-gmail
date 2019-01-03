@@ -3,11 +3,13 @@
 	"version": "0.0.0",
 	"main": "./dist/index.js",
 	"license": "MIT",
+	"private": true,
+	"sideEffects": false,
 	"scripts": {
 		"rm-dist": "rimraf dist",
 		"deploy": "gcloud app deploy --quiet app.yaml cron.yaml",
 		"build": "yarn run rm-dist && webpack-cli --mode production",
-		"watch": "yarn run rm-dist && webpack-cli --mode production --watch",
+		"watch": "yarn run build --watch",
 		"start": "node ./dist/index.js"
 	},
 	"dependencies": {

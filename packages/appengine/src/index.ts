@@ -1,6 +1,6 @@
 import to from 'await-to-js'
 import { AxiosError, AxiosResponse } from 'axios'
-import express = require('express')
+import * as express from 'express'
 import { Request, Response } from 'express'
 import * as admin from 'firebase-admin'
 import { google } from 'googleapis'
@@ -73,11 +73,9 @@ app.get('/', (request: Request, response: Response) => {
 	response.status(StatusCodes.NO_CONTENT).end()
 })
 
-if (module === require.main) {
-	const port = process.env.PORT || 8080
-	app.listen(port, () => {
-		console.log(`App listening on port ${port}`)
-	})
-}
+const port = process.env.PORT || 8080
+app.listen(port, () => {
+	console.log(`App listening on port ${port}`)
+})
 
-module.exports = app
+export default app

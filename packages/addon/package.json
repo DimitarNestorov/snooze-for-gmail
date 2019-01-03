@@ -6,6 +6,7 @@
 	"author": "Dimitar Nestorov <opensource@dimitarnestorov.com> (https://dimitarnestorov.com)",
 	"license": "MIT",
 	"private": true,
+	"sideEffects": false,
 	"scripts": {
 		"rm-dist": "rimraf dist",
 		"build-webpack": "webpack-cli --mode production",

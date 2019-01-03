@@ -1,18 +1,6 @@
 {
+	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
-		"noImplicitReturns": true,
-		"noImplicitAny": true,
-		"preserveConstEnums": true,
-		"strict": true,
-		"pretty": true,
-		"sourceMap": true,
-		"declaration": true,
-		"sourceRoot": "./src/index.ts",
-		"outDir": "dist",
-		"module": "commonjs",
-		"target": "es6",
-		"types": [
-			"@types/node",
-		],
+		"target": "es2015",
 	},
 }

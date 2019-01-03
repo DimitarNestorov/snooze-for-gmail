@@ -1,9 +1,5 @@
 import * as admin from 'firebase-admin'
-import * as functions from 'firebase-functions'
-import { google } from 'googleapis'
 import { OAuth2Client } from 'google-auth-library'
-
-import { buildUrl } from 'shared'
 
 import { User } from './'
 
