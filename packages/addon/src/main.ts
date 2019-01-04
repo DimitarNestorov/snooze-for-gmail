@@ -1,4 +1,4 @@
-import { buildUrl } from 'shared'
+import { buildUrl, StatusCodes, capitalizeFirstLetter } from 'shared'
 
 import getDefaults from './defaults'
 import { getDaysDropdown, getFolderDropdown, getFromDropdown } from './dropdowns'
@@ -78,20 +78,42 @@ type ClickEvent = {
 	formInput: Combined,
 }
 
-export function handleSnoozeClick(event: ClickEvent) {
-	const token = userProperties.getProperty('token')
-	const url = buildUrl(CREATE_FILTER_CLOUD_FUNCTION_NAME, {
-		from: encodeURIComponent(event.formInput.from),
-		days: event.formInput.days,
-		folder: event.formInput.folder,
-	})
-
-	UrlFetchApp.fetch(url, { method: 'post', headers: { Token: token } })
+function createResponse(title: string, body: string): GoogleAppsScript.Card_Service.ActionResponse {
 	return CardService.newActionResponseBuilder().setNavigation(
 		CardService.newNavigation().updateCard(
 			CardService.newCardBuilder().setHeader(
-				CardService.newCardHeader().setTitle('Complete'),
+				CardService.newCardHeader().setTitle(title),
+			).addSection(
+				CardService.newCardSection().addWidget(
+					CardService.newTextParagraph().setText(body)
+				),
 			).build(),
 		),
 	).build()
+}
+
+export function handleSnoozeClick(event: ClickEvent): GoogleAppsScript.Card_Service.ActionResponse {
+	const token = userProperties.getProperty('token')
+	const { from, days, folder } = event.formInput
+	const url = buildUrl(CREATE_FILTER_CLOUD_FUNCTION_NAME, {
+		from: encodeURIComponent(from),
+		days,
+		folder,
+	})
+
+	const response = UrlFetchApp.fetch(url, { method: 'post', headers: { Token: token }, muteHttpExceptions: true })
+	const responseCode = response.getResponseCode()
+	if (responseCode === StatusCodes.BAD_REQUEST) {
+		return createResponse(
+			'Filter already exists',
+			`A filter that moves messages from ${from} to ${capitalizeFirstLetter(folder)} already exists in your settings`,
+		)
+	} else if (isErrorCode(responseCode)) {
+		return createResponse('An error occured', 'Please try again later')
+	}
+
+	return createResponse(
+		`Snoozed ${from}`,
+		`You won't see emails from ${from} in your inbox for ${days === 1 ? '24 hours' : `${days} days`}`,
+	)
 }
