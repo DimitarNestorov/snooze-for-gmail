@@ -101,19 +101,21 @@ export function handleSnoozeClick(event: ClickEvent): GoogleAppsScript.Card_Serv
 		folder,
 	})
 
+	const escapedFrom = from.replace(/\</g, '&lt;').replace(/\>/g, '&gt;')
+
 	const response = UrlFetchApp.fetch(url, { method: 'post', headers: { Token: token }, muteHttpExceptions: true })
 	const responseCode = response.getResponseCode()
 	if (responseCode === StatusCodes.BAD_REQUEST) {
 		return createResponse(
 			'Filter already exists',
-			`A filter that moves messages from ${from} to ${capitalizeFirstLetter(folder)} already exists in your settings`,
+			`A filter that moves messages from ${escapedFrom} to ${capitalizeFirstLetter(folder)} already exists in your settings`,
 		)
 	} else if (isErrorCode(responseCode)) {
 		return createResponse('An error occured', 'Please try again later')
 	}
 
 	return createResponse(
-		`Snoozed ${from}`,
-		`You won't see emails from ${from} in your inbox for ${days === 1 ? '24 hours' : `${days} days`}`,
+		`Snoozed ${escapedFrom}`,
+		`You won't see emails from ${escapedFrom} in your inbox for ${days === 1 ? '24 hours' : `${days} days`}`,
 	)
 }
