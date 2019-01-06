@@ -19,14 +19,18 @@ if (exitstsDotenv) {
 	dotenv.config({ path: dotenvPathExample })
 }
 
-const cloudFunctionNames = []
-for (const i in process.env) {
-	if (i.endsWith('_CLOUD_FUNCTION_NAME')) {
-		const name = process.env[i]
-		if (cloudFunctionNames.includes(name)) throw new Error('Cloud function names must be unique')
-		cloudFunctionNames.push(name)
+function checkForSameValuesInEnv(endsWith, message) {
+	const values = []
+	for (const i in process.env) {
+		if (i.endsWith(endsWith)) {
+			const name = process.env[i]
+			if (values.includes(name)) throw new Error(message)
+			values.push(name)
+		}
 	}
 }
+checkForSameValuesInEnv('_CLOUD_FUNCTION_NAME', 'Cloud function names must be unique')
+checkForSameValuesInEnv('_APPENGINE_PATH', 'App Engine paths must be unique')
 
 function filterObject(object, keys) {
 	const newObject = {}
@@ -38,7 +42,10 @@ function filterObject(object, keys) {
 	return newObject
 }
 
-definePluginConfig = filterObject(process.env, Object.keys(dotenv.parse(fs.readFileSync(exitstsDotenv ? dotenvPath : dotenvPathExample))))
+const dotEnv = dotenv.parse(fs.readFileSync(exitstsDotenv ? dotenvPath : dotenvPathExample))
+process.dotEnv = dotEnv
+
+definePluginConfig = filterObject(process.env, Object.keys(dotEnv))
 // #endregion
 
 module.exports = {

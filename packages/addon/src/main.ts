@@ -94,7 +94,8 @@ function createResponse(title: string, body: string): GoogleAppsScript.Card_Serv
 
 export function handleSnoozeClick(event: ClickEvent): GoogleAppsScript.Card_Service.ActionResponse {
 	const token = userProperties.getProperty('token')
-	const { from, days, folder } = event.formInput
+	const { from, days: daysString, folder } = event.formInput
+	const days = Number(daysString)
 	const url = buildUrl(CREATE_FILTER_CLOUD_FUNCTION_NAME, {
 		from: encodeURIComponent(from),
 		days,
@@ -108,7 +109,7 @@ export function handleSnoozeClick(event: ClickEvent): GoogleAppsScript.Card_Serv
 	if (responseCode === StatusCodes.BAD_REQUEST) {
 		return createResponse(
 			'Filter already exists',
-			`A filter that moves messages from ${escapedFrom} to ${capitalizeFirstLetter(folder)} already exists in your settings`,
+			`A filter that moves messages from <b>${escapedFrom}</b> to <b>${capitalizeFirstLetter(folder)}</b> already exists in your settings`,
 		)
 	} else if (isErrorCode(responseCode)) {
 		return createResponse('An error occured', 'Please try again later')
@@ -116,6 +117,6 @@ export function handleSnoozeClick(event: ClickEvent): GoogleAppsScript.Card_Serv
 
 	return createResponse(
 		`Snoozed ${escapedFrom}`,
-		`You won't see emails from ${escapedFrom} in your inbox for ${days === 1 ? '24 hours' : `${days} days`}`,
+		`You won't see emails from <b>${escapedFrom}</b> in your inbox for <b>${days === 1 ? '24 hours' : `${days} days`}</b>`,
 	)
 }

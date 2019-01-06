@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin'
 import { google, gmail_v1 } from 'googleapis'
 import { DateTime } from 'luxon'
 
-import { StatusCodes, Folder } from 'shared'
+import { StatusCodes, Folder, logError } from 'shared'
 import { createOAuth2Client } from 'shared-node'
 
 import { createFunction, getUserFromToken } from './utils'
@@ -65,18 +65,21 @@ exports[CREATE_FILTER_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (r
 
 		if (client.credentials.id_token) {
 			user.accessToken = client.credentials.access_token!
-			const [ error ] = await to(user.save())
-			error && console.error(error)
+			user.save().catch(logError)
 		}
 
-		const deleteAfter = DateTime.utc().plus({ days: parseInt(days, 10) })
+		const deleteAfter = DateTime.utc().plus({ days: parseInt(days, 10) }).toMillis()
 
-		const [ error ] = await to(admin.database().ref('filters').push({
-			deleteAfter: deleteAfter.toMillis(),
+		const entry = {
+			deleteAfter,
 			userId: user.id,
 			id: filter.id,
-		}))
-		error && console.error(error)
+			from,
+			folder,
+		}
+
+		const [ error ] = await to(admin.database().ref('filters').push(entry))
+		error && console.error(entry, error)
 	} catch(error) {
 		if (isFilterAlreadyExistsError(error)) {
 			response.sendStatus(StatusCodes.BAD_REQUEST)

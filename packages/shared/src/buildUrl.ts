@@ -1,4 +1,4 @@
-export const endpoint = 'https://us-central1-snooze-addon.cloudfunctions.net'
+export const endpoint = `https://${LOCATION}-${PROJECT_NAME}.cloudfunctions.net`
 
 type Query = { [key: string]: string | number }
 export function buildUrl(path: string = '', query: Query = {}): string {
