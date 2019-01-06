@@ -40,7 +40,7 @@ exports[LOGIN_CALLBACK_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (
 		response.send(redirectingMarkup)
 	} catch (error) {
 		console.error(error)
-		response.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorOccurredMarkup).end()
+		response.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorOccurredMarkup)
 	}
 })
 
