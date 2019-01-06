@@ -14,6 +14,10 @@ type GmailEvent = {
 }
 
 function login(accessToken: string) {
+	const url = buildUrl(REGISTER_CLOUD_FUNCTION_NAME, { accessToken })
+	const response = UrlFetchApp.fetch(url)
+	const email = response.getContentText()
+
 	const loginCard = CardService.newCardBuilder()
 	loginCard.setHeader(CardService.newCardHeader().setTitle('Login'))
 
@@ -25,7 +29,7 @@ function login(accessToken: string) {
 						.setText('Login')
 						.setAuthorizationAction(
 							CardService.newAuthorizationAction()
-								.setAuthorizationUrl(buildUrl(LOGIN_CLOUD_FUNCTION_NAME, { accessToken })),
+								.setAuthorizationUrl(buildUrl(LOGIN_CLOUD_FUNCTION_NAME, { email })),
 						),
 				),
 		)
@@ -42,7 +46,6 @@ export function main(event: GmailEvent): GoogleAppsScript.Card_Service.Card[] {
 		const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true })
 		if (isErrorCode(response.getResponseCode())) return login(accessToken)
 
-		Logger.log(response.getContentText())
 		const tokenFromResponse = JSON.parse(response.getContentText()).token
 		userProperties.setProperty('token', tokenFromResponse)
 		// token = tokenFromResponse
