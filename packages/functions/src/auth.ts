@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin'
-import * as functions from 'firebase-functions'
 import { google } from 'googleapis'
 
 import { StatusCodes } from 'shared'
@@ -13,15 +12,13 @@ import {
 } from './utils'
 
 
-function redirectToLogin(email: string, response: functions.Response) {
-	const client = createOAuth2Client()
-	response.redirect(getConnectionUrl(client, email))
-}
-
 exports[LOGIN_CALLBACK_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, response) => {
 	try {
 		const { code }: { code?: string } = request.query
-		if (!code) throw new Error('Code is empty')
+		if (!code) {
+			response.sendStatus(400)
+			return
+		}
 
 		const client = createOAuth2Client()
 		const { tokens } = await client.getToken(code)
@@ -47,7 +44,18 @@ exports[LOGIN_CALLBACK_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (
 	}
 })
 
-exports[LOGIN_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, response) => {
+exports[LOGIN_CLOUD_FUNCTION_NAME] = createFunction().onRequest((request, response) => {
+	const { email } = request.query
+	if (!email) {
+		response.sendStatus(400)
+		return
+	}
+
+	const client = createOAuth2Client()
+	response.redirect(getConnectionUrl(client, email))
+})
+
+exports[REGISTER_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, response) => {
 	const { accessToken }: { accessToken: string } = request.query
 
 	const oauth2Client = new google.auth.OAuth2()
@@ -70,15 +78,12 @@ exports[LOGIN_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, 
 
 		if (!userSnapshot.exists()) {
 			await admin.database().ref(path).set({ email, name, givenName: given_name })
-			redirectToLogin(email, response)
-
-			return
 		}
 
-		redirectToLogin(email, response)
+		response.send(email)
 	} catch (error) {
 		console.error(error)
-		response.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorOccurredMarkup).end()
+		response.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorOccurredMarkup)
 	}
 })
 
@@ -103,14 +108,21 @@ exports[GENERATE_TOKEN_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (
 		const snapshot = await admin.database().ref(`users/${id}`).once('value')
 		if (!snapshot.exists()) {
 			// User does not exist
-			response.status(401).end()
+			response.sendStatus(401)
+			return
+		}
+
+		const user = snapshot.val()
+		if (!user.accessToken || !user.refreshToken) {
+			// User not registered
+			response.sendStatus(401)
 			return
 		}
 
 		const token = await admin.database().ref('tokens').push(id)
-		response.json({ token: token.key }).end()
+		response.json({ token: token.key })
 	} catch(error) {
 		console.error(error)
-		response.status(StatusCodes.INTERNAL_SERVER_ERROR).end()
+		response.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
 	}
 })

@@ -67,8 +67,8 @@ async function notifyUser(userId: string, filters: Filter[]) {
 
 		const filtersString = filters.map(filterToString).join('\n')
 
-		await mg.messages.create('mg.snoozeforgmail.com', {
-			from: 'Snooze for Gmail <support@snoozeforgmail.com>',
+		await mg.messages.create(`mg.${DOMAIN}`, {
+			from: `Snooze for Gmail <support@${DOMAIN}>`,
 			to: [user.email],
 			subject: 'Some filters were not removed!',
 			text: generateMessage(user.givenName || user.name, filtersString)
@@ -164,7 +164,7 @@ app.get(`/${CRON_JOB_APPENGINE_PATH}`, async (request: Request, response: Respon
 })
 
 app.get('/', (request: Request, response: Response) => {
-	response.status(StatusCodes.NO_CONTENT).end()
+	response.sendStatus(StatusCodes.NO_CONTENT)
 })
 
 const port = process.env.PORT || 8080

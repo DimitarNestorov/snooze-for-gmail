@@ -1,7 +1,8 @@
 declare global {
-	const GENERATE_TOKEN_CLOUD_FUNCTION_NAME: string
+	const REGISTER_CLOUD_FUNCTION_NAME: string
 	const LOGIN_CLOUD_FUNCTION_NAME: string
 	const LOGIN_CALLBACK_CLOUD_FUNCTION_NAME: string
+	const GENERATE_TOKEN_CLOUD_FUNCTION_NAME: string
 	const CREATE_FILTER_CLOUD_FUNCTION_NAME: string
 
 	const OAUTH_CLIENT_ID: string
@@ -13,6 +14,8 @@ declare global {
 	const LOCATION: string
 
 	const MAILGUN_API_KEY: string
+
+	const DOMAIN: string
 }
 
 export {}
