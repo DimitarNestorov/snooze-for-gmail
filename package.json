@@ -7,6 +7,7 @@
 		"addon": "yarn workspace addon",
 		"appengine": "yarn workspace appengine",
 		"functions": "yarn workspace functions",
+		"hosting": "yarn workspace hosting",
 		"test": "exit 0 # TODO:",
 		"postinstall": "patch-package"
 	},

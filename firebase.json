@@ -1,4 +1,17 @@
 {
+	"hosting": {
+		"public": "./packages/hosting/dist",
+		"rewrites": [
+			{
+				"source": "**",
+				"destination": "/index.html"
+			}
+		],
+		"predeploy": [
+			"yarn workspace hosting run lint",
+			"yarn workspace hosting run build"
+		]
+	},
 	"functions": {
 		"source": "./packages/functions",
 		"predeploy": [

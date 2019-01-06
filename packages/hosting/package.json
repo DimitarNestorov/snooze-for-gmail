@@ -1,0 +1,14 @@
+{
+	"name": "hosting",
+	"version": "0.0.0",
+	"license": "MIT",
+	"private": true,
+	"sideEffects": false,
+	"scripts": {
+		"lint": "exit 0 # TODO:",
+		"rm-dist": "rimraf dist",
+		"build": "yarn run rm-dist && webpack-cli --mode production",
+		"watch": "yarn run build --watch",
+		"deploy": "firebase deploy --only hosting"
+	}
+}
