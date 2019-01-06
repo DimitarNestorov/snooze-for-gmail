@@ -5,5 +5,5 @@ export * from './html'
 export * from './models'
 
 export function createFunction() {
-	return functions.region('us-central1').https
+	return functions.region(LOCATION).https
 }

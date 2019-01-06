@@ -5,6 +5,7 @@
 			"@types/express",
 			"@types/node",
 			"@types/luxon",
+			"@types/lodash-es",
 		],
 	},
 }

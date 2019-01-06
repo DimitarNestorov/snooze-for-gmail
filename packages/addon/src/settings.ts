@@ -48,28 +48,46 @@ export function handleResetClick() {
 		.build()
 }
 
+export function clearAddon() {
+	userProperties.deleteAllProperties()
+	return CardService.newActionResponseBuilder()
+		.setNavigation(CardService.newNavigation().popCard())
+		.setNotification(
+			CardService.newNotification()
+				.setText(`User properties deleted.`)
+				.setType(CardService.NotificationType.INFO),
+		)
+		.build()
+}
+
 export function settings() {
 	const card = CardService.newCardBuilder()
 	card.setHeader(CardService.newCardHeader().setTitle('Settings'))
 
 	const defaults = getDefaults()
 
+	const buttonSet = CardService.newButtonSet().addButton(
+		CardService.newTextButton()
+			.setText('Save')
+			.setOnClickAction(CardService.newAction().setFunctionName('handleSaveClick')),
+	).addButton(
+		CardService.newTextButton()
+			.setText('Reset')
+			.setOnClickAction(CardService.newAction().setFunctionName('handleResetClick')),
+	)
+
+	process.env.NODE_ENV !== 'production' && buttonSet.addButton(
+		CardService.newTextButton()
+			.setText('Clear')
+			.setOnClickAction(CardService.newAction().setFunctionName('clearAddon')),
+	)
+
 	card.addSection(
 		CardService.newCardSection()
 			.addWidget(getDaysDropdown('Default "Snooze for" option', defaults.days))
 			.addWidget(getSettingsFromDropdown(defaults.from))
 			.addWidget(getFolderDropdown('Default "Move emails to" option', defaults.folder))
-			.addWidget(
-				CardService.newButtonSet().addButton(
-					CardService.newTextButton()
-						.setText('Save')
-						.setOnClickAction(CardService.newAction().setFunctionName('handleSaveClick')),
-				).addButton(
-					CardService.newTextButton()
-						.setText('Reset')
-						.setOnClickAction(CardService.newAction().setFunctionName('handleResetClick')),
-				),
-			),
+			.addWidget(buttonSet),
 	)
 
 	return CardService.newUniversalActionResponseBuilder().displayAddOnCards([card.build()]).build()

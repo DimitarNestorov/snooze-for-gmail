@@ -61,15 +61,15 @@ exports[LOGIN_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, 
 
 	try {
 		const { data } = await oauth2.userinfo.v2.me.get()
-		const { email, id } = data
+		const { email, id, name, given_name } = data
 
 		if (!email) throw new Error('Email is empty')
 
 		const path = `users/${id}`
-		const results = await admin.database().ref(path).once('value')
+		const userSnapshot = await admin.database().ref(path).once('value')
 
-		if (!results.exists) {
-			await admin.database().ref(path).set({ email })
+		if (!userSnapshot.exists()) {
+			await admin.database().ref(path).set({ email, name, givenName: given_name })
 			redirectToLogin(email, response)
 
 			return

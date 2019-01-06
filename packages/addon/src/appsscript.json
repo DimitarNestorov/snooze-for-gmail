@@ -11,7 +11,7 @@
 	],
 	"gmail": {
 		"name": "Snooze for Gmail",
-		"logoUrl": "https://www.gstatic.com/images/icons/material/system/2x/bookmark_black_24dp.png",
+		"logoUrl": "https://%PROJECT_NAME%.firebaseapp.com/logo.png",
 		"contextualTriggers": [{
 			"unconditional": {},
 			"onTriggerFunction": "main"
@@ -23,7 +23,7 @@
 		"primaryColor": "#4285F4",
 		"secondaryColor": "#2196F3",
 		"openLinkUrlPrefixes": [
-			"https://us-central1-snooze-addon.cloudfunctions.net/"
+			"https://%LOCATION%-%PROJECT_NAME%.cloudfunctions.net/"
 		]
 	}
 }

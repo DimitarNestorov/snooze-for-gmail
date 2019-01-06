@@ -7,7 +7,12 @@ declare global {
 	const OAUTH_CLIENT_ID: string
 	const OAUTH_CLIENT_SECRET: string
 
-	const CRON_JOB_PATH: string
+	const CRON_JOB_APPENGINE_PATH: string
+
+	const PROJECT_NAME: string
+	const LOCATION: string
+
+	const MAILGUN_API_KEY: string
 }
 
 export {}
