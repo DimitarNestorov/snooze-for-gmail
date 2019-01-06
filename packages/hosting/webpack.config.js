@@ -4,6 +4,8 @@ const baseConfig = require('../../webpack.config.js')
 
 baseConfig.plugins.push(new CopyPlugin([
 	'index.html',
+	'terms.html',
+	'privacy.html',
 	{ from: '../../../resources/logo.png', to: 'logo.png' },
 	{ from: '../../../resources/logo.svg', to: 'logo.svg' },
 ], {

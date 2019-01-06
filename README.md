@@ -1,5 +1,5 @@
 # Snooze for Gmail
-<div style="text-align:center"><img src="resources/logo.png?raw=true" alt="Logo" width="200" height="200"></div>
+<p align="center"><img src="resources/logo.png?raw=true" alt="Logo" width="200" height="200"></p>
 
 ## Development tools
 To deploy the add-on you'll need [clasp](https://www.npmjs.com/package/@google/clasp). To deploy the cloud functions you'll need [Firebase CLI](https://www.npmjs.com/package/firebase-tools). To deploy the App Engine app you'll need [Google Cloud SDK](https://cloud.google.com/sdk/).
