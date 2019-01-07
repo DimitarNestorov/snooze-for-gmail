@@ -1,0 +1,15 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/addon/package.json",
+        "packages/appengine/package.json",
+        "packages/functions/package.json",
+        "packages/hosting/package.json",
+        "packages/shared-node/package.json",
+        "packages/shared/package.json"
+      ]
+    }
+  }
+}
