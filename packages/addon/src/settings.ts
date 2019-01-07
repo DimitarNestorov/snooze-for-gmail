@@ -1,5 +1,16 @@
 import getDefaults from './defaults'
 import { getDaysDropdown, getSettingsFromDropdown, getFolderDropdown } from './dropdowns'
+import {
+	CardBuilder,
+	CardHeader,
+	CardSection,
+	Notification,
+	Navigation,
+	ActionResponseBuilder,
+	UniversalActionResponseBuilder,
+	TextButton,
+	ButtonSet,
+} from './framework'
 import { userProperties } from './properties'
 
 type SubmitEvent = {
@@ -24,71 +35,52 @@ function resetDefaultValues() {
 
 const changesMessage = 'Changes will be applied next time the add-on loads.'
 
-export function handleSaveClick(event: SubmitEvent) {
-	saveDefaultValues(event)
-	return CardService.newActionResponseBuilder()
-		.setNavigation(CardService.newNavigation().popCard())
-		.setNotification(
-			CardService.newNotification()
-				.setText(`Settings saved. ${changesMessage}`)
-				.setType(CardService.NotificationType.INFO),
-		)
-		.build()
+function createHandler(action: (event: SubmitEvent) => any, message: string) {
+	return (event: SubmitEvent) => {
+		action(event)
+
+		const notification = new Notification()
+		notification.setText(message).setType(CardService.NotificationType.INFO)
+
+		return new ActionResponseBuilder()
+			.setNavigation(new Navigation().popCard())
+			.setNotification(notification)
+			.build()
+	}
 }
 
-export function handleResetClick() {
-	resetDefaultValues()
-	return CardService.newActionResponseBuilder()
-		.setNavigation(CardService.newNavigation().popCard())
-		.setNotification(
-			CardService.newNotification()
-				.setText(`Settings reset. ${changesMessage}`)
-				.setType(CardService.NotificationType.INFO),
-		)
-		.build()
-}
+export const handleSaveClick = createHandler(saveDefaultValues, `Settings saved. ${changesMessage}`)
 
-export function clearAddon() {
-	userProperties.deleteAllProperties()
-	return CardService.newActionResponseBuilder()
-		.setNavigation(CardService.newNavigation().popCard())
-		.setNotification(
-			CardService.newNotification()
-				.setText(`User properties deleted.`)
-				.setType(CardService.NotificationType.INFO),
-		)
-		.build()
-}
+export const handleResetClick = createHandler(resetDefaultValues, `Settings reset. ${changesMessage}`)
+
+export const handleClearAddon = process.env.NODE_ENV !== 'production' && createHandler(
+	() => { userProperties.deleteAllProperties() },
+	'User properties deleted.',
+)
 
 export function settings() {
-	const card = CardService.newCardBuilder()
-	card.setHeader(CardService.newCardHeader().setTitle('Settings'))
+	const card = new CardBuilder()
+	card.setHeader(new CardHeader().setTitle('Settings'))
 
 	const defaults = getDefaults()
 
-	const buttonSet = CardService.newButtonSet().addButton(
-		CardService.newTextButton()
-			.setText('Save')
-			.setOnClickAction(CardService.newAction().setFunctionName('handleSaveClick')),
-	).addButton(
-		CardService.newTextButton()
-			.setText('Reset')
-			.setOnClickAction(CardService.newAction().setFunctionName('handleResetClick')),
+	const buttonSet = new ButtonSet(
+		{ text: 'Save', functionName: 'handleSaveClick' },
+		{ text: 'Reset', functionName: 'handleResetClick' },
 	)
 
-	process.env.NODE_ENV !== 'production' && buttonSet.addButton(
-		CardService.newTextButton()
-			.setText('Clear')
-			.setOnClickAction(CardService.newAction().setFunctionName('clearAddon')),
-	)
+	if (process.env.NODE_ENV !== 'production') {
+		const clearButton = new TextButton({ text: 'Clear', functionName: 'handleClearAddon' })
+		buttonSet.addButton(clearButton)
+	}
 
 	card.addSection(
-		CardService.newCardSection()
+		new CardSection()
 			.addWidget(getDaysDropdown('Default "Snooze for" option', defaults.days))
 			.addWidget(getSettingsFromDropdown(defaults.from))
 			.addWidget(getFolderDropdown('Default "Move emails to" option', defaults.folder))
 			.addWidget(buttonSet),
 	)
 
-	return CardService.newUniversalActionResponseBuilder().displayAddOnCards([card.build()]).build()
+	return new UniversalActionResponseBuilder().displayAddOnCards([card.build()]).build()
 }

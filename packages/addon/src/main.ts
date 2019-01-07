@@ -2,6 +2,15 @@ import { buildUrl, StatusCodes, capitalizeFirstLetter } from 'shared'
 
 import getDefaults from './defaults'
 import { getDaysDropdown, getFolderDropdown, getFromDropdown } from './dropdowns'
+import {
+	CardBuilder,
+	CardHeader,
+	TextParagraph,
+	CardSection,
+	Navigation,
+	ActionResponseBuilder,
+	ButtonSet,
+} from './framework'
 import { isErrorCode } from './functions'
 import { userProperties } from './properties'
 import { Combined } from './types'
@@ -18,21 +27,17 @@ function login(accessToken: string) {
 	const response = UrlFetchApp.fetch(url)
 	const email = response.getContentText()
 
-	const loginCard = CardService.newCardBuilder()
-	loginCard.setHeader(CardService.newCardHeader().setTitle('Login'))
+	const loginCard = new CardBuilder()
+	loginCard.setHeader(new CardHeader().setTitle('Welcome to Snooze for Gmail'))
 
-	const loginSection = CardService.newCardSection()
-		.addWidget(
-			CardService.newButtonSet()
-				.addButton(
-					CardService.newTextButton()
-						.setText('Login')
-						.setAuthorizationAction(
-							CardService.newAuthorizationAction()
-								.setAuthorizationUrl(buildUrl(LOGIN_CLOUD_FUNCTION_NAME, { email })),
-						),
-				),
-		)
+	const loginUrl = buildUrl(LOGIN_CLOUD_FUNCTION_NAME, { email })
+	const buttonSet = new ButtonSet({ text: 'Connect', authorizationUrl: loginUrl })
+
+	const paragraph = new TextParagraph()
+	paragraph.setText('To begin, this Add-on needs to connect to your Gmail account. Get started below!')
+
+	const loginSection = new CardSection()
+	loginSection.addWidget(paragraph).addWidget(buttonSet)
 
 	loginCard.addSection(loginSection)
 	return [loginCard.build()]
@@ -56,19 +61,16 @@ export function main(event: GmailEvent): GoogleAppsScript.Card_Service.Card[] {
 
 	const cards: GoogleAppsScript.Card_Service.Card[] = []
 
-	const card = CardService.newCardBuilder()
-	card.setHeader(CardService.newCardHeader())
+	const card = new CardBuilder()
+	card.setHeader(new CardHeader())
 
 	const defaults = getDefaults()
-	const button = CardService.newTextButton().setText('Snooze').setOnClickAction(
-		CardService.newAction().setFunctionName('handleSnoozeClick')
-	)
 
-	const section = CardService.newCardSection()
+	const section = new CardSection()
 		.addWidget(getDaysDropdown('Snooze for', defaults.days))
 		.addWidget(getFromDropdown(event.messageMetadata.messageId, defaults.from))
 		.addWidget(getFolderDropdown('Move emails to', defaults.folder))
-		.addWidget(CardService.newButtonSet().addButton(button))
+		.addWidget(new ButtonSet({ text: 'Snooze', functionName: 'handleSnoozeClick' }))
 
 	card.addSection(section)
 
@@ -82,17 +84,19 @@ type ClickEvent = {
 }
 
 function createResponse(title: string, body: string): GoogleAppsScript.Card_Service.ActionResponse {
-	return CardService.newActionResponseBuilder().setNavigation(
-		CardService.newNavigation().updateCard(
-			CardService.newCardBuilder().setHeader(
-				CardService.newCardHeader().setTitle(title),
-			).addSection(
-				CardService.newCardSection().addWidget(
-					CardService.newTextParagraph().setText(body)
-				),
-			).build(),
-		),
-	).build()
+	const header = new CardHeader()
+	header.setTitle(title)
+
+	const section = new CardSection()
+	section.addWidget(new TextParagraph().setText(body))
+
+	const cardBuilder = new CardBuilder()
+	cardBuilder.setHeader(header).addSection(section)
+
+	const navigation = new Navigation()
+	navigation.updateCard(cardBuilder.build())
+
+	return new ActionResponseBuilder().setNavigation(navigation).build()
 }
 
 export function handleSnoozeClick(event: ClickEvent): GoogleAppsScript.Card_Service.ActionResponse {
