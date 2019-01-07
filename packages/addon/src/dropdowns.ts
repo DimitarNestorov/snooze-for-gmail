@@ -1,7 +1,8 @@
+import { SelectionInput } from './framework'
 import { Days, Folder, From } from './types'
 
 function newDropdown(title: string, name: string) {
-	return CardService.newSelectionInput()
+	return new SelectionInput()
 		.setType(CardService.SelectionInputType.DROPDOWN)
 		.setTitle(title)
 		.setFieldName(name)
