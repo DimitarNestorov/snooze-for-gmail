@@ -9,6 +9,9 @@
 		"https://www.googleapis.com/auth/userinfo.email",
 		"https://www.googleapis.com/auth/script.external_request"
 	],
+	"urlFetchWhitelist": [
+		"https://%LOCATION%-%PROJECT_NAME%.cloudfunctions.net/"
+	],
 	"gmail": {
 		"name": "Snooze for Gmail",
 		"logoUrl": "https://%PROJECT_NAME%.firebaseapp.com/logo.png",
