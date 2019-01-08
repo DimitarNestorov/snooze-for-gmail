@@ -9,6 +9,14 @@
 		"rm-dist": "rimraf dist",
 		"build": "yarn run rm-dist && webpack-cli --mode production",
 		"watch": "yarn run build --watch",
+		"serve-firebase": "firebase serve --only hosting",
+		"serve": "concurrently yarn:watch yarn:serve-firebase",
 		"deploy": "firebase deploy --only hosting"
+	},
+	"dependencies": {
+		"@uirouter/react": "0.8.7",
+		"react": "16.7.0",
+		"react-dom": "16.7.0",
+		"react-helmet": "5.2.0"
 	}
 }

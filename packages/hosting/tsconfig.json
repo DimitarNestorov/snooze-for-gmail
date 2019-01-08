@@ -1,8 +1,12 @@
 {
 	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
-		"target": "es5",
+		"jsx": "react",
+		"module": "esNext",
+		"target": "es2015",
 		"types": [
+			"@types/react-dom",
+			"@types/react-helmet",
 		],
 	},
 }

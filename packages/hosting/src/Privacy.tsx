@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Privacy Policy - Snooze for Gmail</title>
-</head>
-<body>
+import * as React from 'react'
+import { Helmet } from 'react-helmet'
+
+export default () => <React.Fragment>
+	<Helmet>
+		<title>Privacy Policy - Snooze for Gmail</title>
+	</Helmet>
 	<h2>Privacy Policy</h2>
 	<p>Your privacy is important to us. It is Snooze for Gmail's policy to respect your privacy regarding any information we may collect from you across our website, <a href="https://snoozeforgmail.com">https://snoozeforgmail.com</a>, and other sites we own and operate.</p>
 	<p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.</p>
@@ -15,6 +13,7 @@
 	<p>Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.</p>
 	<p>You are free to refuse our request for your personal information, with the understanding that we may be unable to provide you with some of your desired services.</p>
 	<p>Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us.</p>
-	<p>This policy is effective as of 7 January 2019.</p>
-</body>
-</html>
+	<p>In order to use our service you’re required to sign up with a Google account. When you do so we collect your name and email address to contact you about issues related to our service.</p>
+	<p>We also request access to your Gmail settings in order to create filters and remove those created filters.</p>
+	<p>This policy is effective as of 8 January 2019.</p>
+</React.Fragment>

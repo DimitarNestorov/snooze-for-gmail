@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Terms of Service - Snooze for Gmail</title>
-</head>
-<body>
+import * as React from 'react'
+import { Helmet } from 'react-helmet'
+
+
+export default () => <React.Fragment>
+	<Helmet>
+		<title>Terms of Service - Snooze for Gmail</title>
+	</Helmet>
 	<h2>Snooze for Gmail Terms of Service</h2>
 	<h3>1. Terms</h3>
 	<p>By accessing the website at <a href="https://snoozeforgmail.com">https://snoozeforgmail.com</a>, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.</p>
@@ -38,5 +37,4 @@
 	<p>Snooze for Gmail may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p>
 	<h3>8. Governing Law</h3>
 	<p>These terms and conditions are governed by and construed in accordance with the laws of Bulgaria and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>
-</body>
-</html>
+</React.Fragment>
