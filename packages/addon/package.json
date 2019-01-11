@@ -12,7 +12,7 @@
 		"build-webpack": "webpack-cli --mode production",
 		"build-webpack-dev": "yarn run build-webpack --mode development",
 		"clasp-push": "clasp push",
-		"deploy": "yarn run rm-dist && yarn run build-webpack && yarn run clasp-push",
+		"deploy": "is-git-status-clean && yarn run rm-dist && yarn run build-webpack && yarn run clasp-push",
 		"watch-webpack": "webpack-cli --watch --mode production",
 		"watch-webpack-dev": "yarn run watch-webpack --mode development",
 		"watch-clasp": "sleep 5 && clasp push --watch --force",

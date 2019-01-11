@@ -11,7 +11,7 @@
 		"watch": "yarn run build --watch",
 		"serve-firebase": "firebase serve --only hosting",
 		"serve": "concurrently yarn:watch yarn:serve-firebase",
-		"deploy": "firebase deploy --only hosting"
+		"deploy": "is-git-status-clean && firebase deploy --only hosting"
 	},
 	"dependencies": {
 		"@uirouter/react": "0.8.8",

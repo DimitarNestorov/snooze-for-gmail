@@ -8,7 +8,7 @@
 	"scripts": {
 		"rm-dist": "rimraf dist",
 		"gcloud-deploy": "gcloud app deploy --quiet app.yaml cron.yaml",
-		"deploy": "yarn run build && yarn run gcloud-deploy",
+		"deploy": "is-git-status-clean && yarn run build && yarn run gcloud-deploy",
 		"build": "yarn run rm-dist && webpack-cli --mode production",
 		"watch": "yarn run build --watch",
 		"start": "node ./dist/index.js"
