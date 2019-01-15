@@ -5,6 +5,7 @@ import { User } from './'
 
 const defaultScope = [
 	"https://www.googleapis.com/auth/userinfo.email",
+	"https://www.googleapis.com/auth/userinfo.profile",
 	"https://www.googleapis.com/auth/gmail.settings.basic",
 ]
 export function getConnectionUrl(auth: OAuth2Client, loginHint: string | undefined) {
