@@ -16,7 +16,7 @@ exports[LOGIN_CALLBACK_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (
 	try {
 		const { code }: { code?: string } = request.query
 		if (!code) {
-			response.sendStatus(400)
+			response.sendStatus(StatusCodes.BAD_REQUEST)
 			return
 		}
 

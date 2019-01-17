@@ -7,7 +7,9 @@
 ## Development tools
 To deploy the add-on you'll need [clasp](https://www.npmjs.com/package/@google/clasp). To deploy the cloud functions you'll need [Firebase CLI](https://www.npmjs.com/package/firebase-tools). To deploy the App Engine app you'll need [Google Cloud SDK](https://cloud.google.com/sdk/).
 
+Make sure to install Firebase CLI using npm if you want to test functions locally: https://github.com/firebase/firebase-tools/issues/552
+
 ```sh
-yarn global add @google/clasp firebase-tools
+npm install -g @google/clasp firebase-tools
 brew cask install google-cloud-sdk
 ```
