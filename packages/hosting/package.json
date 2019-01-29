@@ -14,7 +14,7 @@
 		"deploy": "is-git-status-clean && firebase deploy --only hosting"
 	},
 	"dependencies": {
-		"@uirouter/react": "0.8.8",
+		"@uirouter/react": "0.8.9",
 		"react": "16.7.0",
 		"react-dom": "16.7.0",
 		"react-helmet": "5.2.0"
