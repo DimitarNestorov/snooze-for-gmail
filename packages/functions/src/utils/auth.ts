@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin'
-import { OAuth2Client } from 'google-auth-library'
+
+import { OAuth2Client } from 'shared-node'
 
 import { User } from './'
 

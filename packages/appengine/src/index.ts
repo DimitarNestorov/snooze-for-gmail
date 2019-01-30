@@ -1,8 +1,8 @@
 import to from 'await-to-js'
-import { AxiosError, AxiosResponse } from 'axios'
 import * as express from 'express'
 import { Request, Response } from 'express'
 import * as admin from 'firebase-admin'
+import { GaxiosError, GaxiosResponse } from 'gaxios'
 import { google } from 'googleapis'
 import { debounce } from 'lodash-es'
 import { DateTime } from 'luxon'
@@ -128,7 +128,7 @@ async function removeFilter(filterSnapshot: admin.database.DataSnapshot) {
 			refresh_token: user.refreshToken,
 		})
 
-		const [ error ] = await to<AxiosResponse<void>, AxiosError>(gmail.users.settings.filters.delete({
+		const [ error ] = await to<GaxiosResponse<void>, GaxiosError>(gmail.users.settings.filters.delete({
 			userId: filter.userId,
 			id: filter.id,
 		}))
