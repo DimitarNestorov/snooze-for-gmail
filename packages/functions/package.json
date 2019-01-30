@@ -16,11 +16,6 @@
 		"deploy": "is-git-status-clean && firebase deploy --only functions",
 		"logs": "firebase functions:log"
 	},
-	"greenkeeper": {
-		"ignore": [
-			"firebase-admin"
-		]
-	},
 	"dependencies": {
 		"await-to-js": "2.1.1",
 		"firebase-admin": "6.0.0",
