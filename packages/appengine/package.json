@@ -19,7 +19,7 @@
 		"firebase-admin": "6.5.0",
 		"googleapis": "37.2.0",
 		"lodash-es": "4.17.11",
-		"luxon": "1.11.1",
+		"luxon": "1.11.2",
 		"mailgun.js": "2.0.1"
 	}
 }
