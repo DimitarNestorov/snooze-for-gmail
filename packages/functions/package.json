@@ -4,6 +4,9 @@
 	"main": "dist/index.js",
 	"license": "MIT",
 	"private": true,
+	"engines": {
+		"node": "8"
+	},
 	"scripts": {
 		"lint": "exit 0 #TODO:",
 		"rm-dist": "rimraf dist",
