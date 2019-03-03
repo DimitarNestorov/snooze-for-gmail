@@ -24,6 +24,6 @@
 		"firebase-admin": "7.0.0",
 		"firebase-functions": "2.2.0",
 		"googleapis": "37.2.0",
-		"luxon": "1.11.3"
+		"luxon": "1.11.4"
 	}
 }
