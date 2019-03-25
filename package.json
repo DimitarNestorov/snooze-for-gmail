@@ -16,7 +16,7 @@
 		"@types/google-apps-script": "^0.0.40",
 		"@types/lodash-es": "^4.17.3",
 		"@types/luxon": "^1.11.0",
-		"@types/node": "^11.11.5",
+		"@types/node": "^11.11.6",
 		"@types/react": "^16.8.8",
 		"@types/react-dom": "^16.8.3",
 		"@types/react-helmet": "^5.0.8",
