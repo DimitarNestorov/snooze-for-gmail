@@ -1,4 +1,6 @@
-const externals = {}
+const externals = {
+	gaxios: 'commonjs gaxios'
+}
 Object.keys(require('./package.json').dependencies).forEach(key => {
 	externals[key] = `commonjs ${key}`
 })

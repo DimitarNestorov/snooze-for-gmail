@@ -1,6 +1,6 @@
 import to from 'await-to-js'
-import { AxiosError } from 'axios'
 import * as admin from 'firebase-admin'
+import { GaxiosError } from 'gaxios'
 import { google, gmail_v1 } from 'googleapis'
 import { DateTime } from 'luxon'
 
@@ -9,18 +9,13 @@ import { createOAuth2Client } from 'shared-node'
 
 import { createFunction, getUserFromToken } from './utils'
 
-interface GoogleAPIError extends AxiosError {
-	errors: Array<{ domain: string, reason: string, message: string }>
-}
-
 function isFilterAlreadyExistsError(error: any): boolean {
 	if (typeof error !== "object") return false
-	const axiosError = error as GoogleAPIError
-	if (!axiosError.response) return false
-	if (axiosError.response.status !== StatusCodes.BAD_REQUEST) return false
-	if (!Array.isArray(axiosError.errors)) return false
+	if (!(error instanceof GaxiosError)) return false
+	if (!error.response) return false
+	if (error.response.status !== StatusCodes.BAD_REQUEST) return false
 
-	return Boolean(axiosError.errors.filter(error => error.message === 'Filter already exists').length)
+	return error.response.statusText.includes('Filter already exists')
 }
 
 exports[CREATE_FILTER_CLOUD_FUNCTION_NAME] = createFunction().onRequest(async (request, response) => {
