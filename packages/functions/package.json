@@ -23,7 +23,7 @@
 		"await-to-js": "2.1.1",
 		"firebase-admin": "7.0.0",
 		"firebase-functions": "2.2.1",
-		"googleapis": "38.0.0",
+		"googleapis": "39.1.0",
 		"luxon": "1.12.0"
 	}
 }
