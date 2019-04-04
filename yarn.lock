@@ -378,10 +378,10 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/webpack@^4.4.26":
-  version "4.4.26"
-  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.26.tgz#b52f605351f2ed60e6ce24fa7df39ab7abd03470"
-  integrity sha512-vs8LjgEZUQTBxotXbMf8s4jgykozkqjv6P0JRi+1BLh0n7LQUkMXfvsoPb5U/dBL1ay5Lu0c46G6FRmAZBhAUA==
+"@types/webpack@^4.4.27":
+  version "4.4.27"
+  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.27.tgz#8bb9429185977a6b3b9e6e6132f561066aa7e7c2"
+  integrity sha512-xSll/4UXnLQ0xjdAoTRIFxA6NPC2abJ8nHxRH6SqTymHrfGCc8er7qH0npwCP8q3VFoJh2Hjz1wH8oTjwx9/jQ==
   dependencies:
     "@types/anymatch" "*"
     "@types/node" "*"
@@ -2418,10 +2418,10 @@ googleapis-common@^0.7.0:
     url-template "^2.0.8"
     uuid "^3.2.1"
 
-googleapis@39.1.0:
-  version "39.1.0"
-  resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-39.1.0.tgz#7a89092e9cc64b25dde4503db606032e3514444d"
-  integrity sha512-MRO9rW7izUIBZ4NJ67FNhBUw/Q3ki7hk149E9MhphJnLw1CStUAnm9nFD/IpNnx97qx2WBa7dLPjeXrJky6xlw==
+googleapis@39.2.0:
+  version "39.2.0"
+  resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-39.2.0.tgz#5c81f721e9da2e80cb0b25821ed60d3bc200c3da"
+  integrity sha512-66X8TG1B33zAt177sG1CoKoYHPP/B66tEpnnSANGCqotMuY5gqSQO8G/0gqHZR2jRgc5CHSSNOJCnpI0SuDxMQ==
   dependencies:
     google-auth-library "^3.0.0"
     googleapis-common "^0.7.0"
