@@ -2139,10 +2139,10 @@ for-in@^1.0.2:
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
   integrity sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=
 
-fork-ts-checker-webpack-plugin@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-1.0.3.tgz#3647f7ae168982b697394f23f7bd9edcbb1c46c9"
-  integrity sha512-rz28Z47lsRagYbNYXPwlIyQCnqRI9I7kWKQGKqCjTDxQv13ii6oEFrSdREeEJ18qPQxXEBMfblrY0W0NDuwG5g==
+fork-ts-checker-webpack-plugin@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-1.1.0.tgz#b86ad22bd87cc243763e2bf384fe5192026238fc"
+  integrity sha512-2y0etlSxfJ17wfoC+dLDj/k9tZDcAJa5vqoiNGZTLr6NM8OzycDQDJhuY5BboPw4xrMG6syo4E4o9UkLWzd9qg==
   dependencies:
     babel-code-frame "^6.22.0"
     chalk "^2.4.1"
