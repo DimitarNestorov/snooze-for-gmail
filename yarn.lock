@@ -262,10 +262,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/google-apps-script@^0.0.43":
-  version "0.0.43"
-  resolved "https://registry.yarnpkg.com/@types/google-apps-script/-/google-apps-script-0.0.43.tgz#2041034f5e1ace7842faae373d801e68be75d178"
-  integrity sha512-uADhStK/0v2ZSGMO+cjm2vTqawk04LgpoPm9iMU8V5XjgVAJNI/agt0v25BtOPDH7fSIoraerKhQtw9mIFMvQA==
+"@types/google-apps-script@^0.0.44":
+  version "0.0.44"
+  resolved "https://registry.yarnpkg.com/@types/google-apps-script/-/google-apps-script-0.0.44.tgz#f6cb2faa72427db5de6b06d11a6524a628991694"
+  integrity sha512-572LQZmzf7Ym7e1vBGFiL/893gLQHACQQ/BxAOO9jkWid0twEwtZSy250wyAMz8QMuGceKz7US1f7c5dJ3JgzA==
 
 "@types/jsonwebtoken@^7.2.6":
   version "7.2.8"
