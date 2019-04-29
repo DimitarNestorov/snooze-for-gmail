@@ -40,7 +40,7 @@ function createHandler(action: (event: SubmitEvent) => any, message: string) {
 		action(event)
 
 		const notification = new Notification()
-		notification.setText(message).setType(CardService.NotificationType.INFO)
+		notification.setText(message)
 
 		return new ActionResponseBuilder()
 			.setNavigation(new Navigation().popCard())
