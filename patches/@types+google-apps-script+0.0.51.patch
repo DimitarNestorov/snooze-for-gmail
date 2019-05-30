@@ -1,0 +1,13 @@
+diff --git a/node_modules/@types/google-apps-script/google-apps-script.card-service.d.ts b/node_modules/@types/google-apps-script/google-apps-script.card-service.d.ts
+index 910aa9d..103e457 100644
+--- a/node_modules/@types/google-apps-script/google-apps-script.card-service.d.ts
++++ b/node_modules/@types/google-apps-script/google-apps-script.card-service.d.ts
+@@ -514,7 +514,7 @@ declare namespace GoogleAppsScript {
+      *         .addItem("radio button three title", "radio_three_value", false);
+      */
+     export interface SelectionInput {
+-      addItem(text: object, value: object, selected: boolean): SelectionInput;
++      addItem(text: Object, value: Object, selected: boolean): SelectionInput;
+       setFieldName(fieldName: string): SelectionInput;
+       setOnChangeAction(action: Action): SelectionInput;
+       setTitle(title: string): SelectionInput;
