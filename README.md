@@ -1,7 +1,5 @@
 # Snooze for Gmail
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/dimitarnestorov/snooze-for-gmail.svg)](https://greenkeeper.io/)
-
 <p align="center"><img src="resources/logo.png?raw=true" alt="Logo" width="200" height="200"></p>
 
 ## Development tools
