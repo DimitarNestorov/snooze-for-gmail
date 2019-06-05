@@ -3,12 +3,17 @@
 	"workspaces": [
 		"packages/*"
 	],
+	"husky": {
+		"hooks": {
+			"pre-commit": "source test.sh"
+		}
+	},
 	"scripts": {
 		"addon": "yarn workspace addon",
 		"appengine": "yarn workspace appengine",
 		"functions": "yarn workspace functions",
 		"hosting": "yarn workspace hosting",
-		"test": "yarn workspace addon build && yarn workspace appengine build && yarn workspace functions build && yarn workspace hosting build",
+		"test": "yarn && yarn addon build && yarn appengine build && yarn functions build && yarn hosting build",
 		"postinstall": "patch-package"
 	},
 	"devDependencies": {

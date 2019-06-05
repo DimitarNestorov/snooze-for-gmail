@@ -39,7 +39,7 @@ type Filter = {
 }
 
 const filterToString = ({ from, folder }: Filter) => `
-Matches: from:(${from})
+Matches: from:(${from.replace("@", "(at)").replace(/\./g, "(dot)")})
 Do this: ${
 	folder === Folder.Trash
 		? 'Mark as read, Delete it'
