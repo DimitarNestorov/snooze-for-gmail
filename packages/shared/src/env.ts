@@ -11,7 +11,7 @@ declare global {
 	const CRON_JOB_APPENGINE_PATH: string
 
 	const PROJECT_NAME: string
-	const LOCATION: string
+	const LOCATION: "us-central1" | "us-east1" | "us-east4" | "europe-west1" | "europe-west2" | "asia-east2" | "asia-northeast1"
 
 	const MAILGUN_API_KEY: string
 
