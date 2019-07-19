@@ -18,7 +18,7 @@
 		"express": "4.17.1",
 		"firebase-admin": "8.2.0",
 		"googleapis": "41.0.1",
-		"lodash-es": "4.17.14",
+		"lodash-es": "4.17.15",
 		"luxon": "1.17.1",
 		"mailgun.js": "2.0.1"
 	}
