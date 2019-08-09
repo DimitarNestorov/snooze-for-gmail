@@ -17,7 +17,7 @@
 		"@uirouter/react": "0.8.9",
 		"firebase-admin": "8.3.0",
 		"react": "16.9.0",
-		"react-dom": "16.8.6",
+		"react-dom": "16.9.0",
 		"react-helmet": "5.2.1"
 	}
 }
