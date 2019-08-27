@@ -243,10 +243,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/google-apps-script@^0.0.56":
-  version "0.0.56"
-  resolved "https://registry.yarnpkg.com/@types/google-apps-script/-/google-apps-script-0.0.56.tgz#949a6a2ce852349f97eebf43ddf76a70d3b82434"
-  integrity sha512-WWgH2maNOuZf93htQHIu432E6jE+fvREBUeV4lnZE9jbCCPqhIRFX9+bdBWGK0GOSsjAuzB3fB9rBe+RxapCeA==
+"@types/google-apps-script@^0.0.58":
+  version "0.0.58"
+  resolved "https://registry.yarnpkg.com/@types/google-apps-script/-/google-apps-script-0.0.58.tgz#6a7a2d2f87ab016e03b9fe469ca760af89a8f0ac"
+  integrity sha512-Sy6maRM5tv2KbsSENHkiBfmofcq+XwGFxYEgAWkWj6OvSMgRJu5wjEGBcOjWL0hY9Ai9EHKXmyATPLYI/Dwy+Q==
 
 "@types/lodash-es@^4.17.3":
   version "4.17.3"
