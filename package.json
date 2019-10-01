@@ -17,7 +17,7 @@
 		"postinstall": "patch-package"
 	},
 	"devDependencies": {
-		"@firebase/app-types": "^0.4.3",
+		"@firebase/app-types": "^0.4.4",
 		"@types/express": "^4.17.1",
 		"@types/google-apps-script": "^0.0.59",
 		"@types/lodash-es": "^4.17.3",
